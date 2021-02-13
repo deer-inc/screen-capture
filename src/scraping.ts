@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import * as _fs from 'fs';
 import puppeteer, { Page } from 'puppeteer';
 import { Site, SITES } from './sites';
@@ -61,12 +62,12 @@ export class Scraping {
   }
 
   private removeUrlFromQue(url: string) {
-    const index = this.que.indexOf(url);
+    const index = this.que.indexOf(url.replace(/\/$/, ''));
     this.que.splice(index, 1);
   }
 
-  private async getScreen(page: Page, site: Site) {
-    await page.goto(site.url, {
+  private async getScreen(page: Page, site: Site, url: string = site.url) {
+    await page.goto(url, {
       waitUntil: 'networkidle2',
     });
     await page.waitForTimeout(2000);
@@ -92,9 +93,9 @@ export class Scraping {
       );
     });
 
-    this.captured.push(site.url);
+    this.captured.push(url);
     this.addUrlToQue(this.getOrigin(site.url), urls, site.ignorePaths);
-    this.removeUrlFromQue(site.url);
+    this.removeUrlFromQue(url);
 
     await page.waitForTimeout(4000);
 
@@ -103,16 +104,19 @@ export class Scraping {
     } catch (err) {}
 
     const title = await page.title();
+    const timestamp = format(new Date(), 'yyyy-MM-dd');
 
     await page.screenshot({
-      path: `screens/${site.dir}/${title}.png`,
+      path: `screens/${site.dir}/${
+        title.replace('/', '|') + '_' + timestamp
+      }.png`,
       fullPage: true,
     });
 
     console.log(this.que.length);
 
     if (this.que[0]) {
-      await this.getScreen(page, site);
+      await this.getScreen(page, site, this.que[0]);
     }
   }
 }
