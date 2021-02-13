@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,5 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "puppeteer": "^7.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^12.20.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
   }
 }
