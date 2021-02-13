@@ -1,4 +1,4 @@
 node_modules
 screens
-sites.js
+src/sites.ts
 dist

@@ -5,17 +5,13 @@ export interface Site {
 }
 
 export const SITES: Site[] = [
+  // {
+  //   dir: 'ポテパンキャンプ',
+  //   url: 'https://camp.potepan.com/',
+  //   ignorePaths: ['https://camp.potepan.com/interview/'],
+  // },
   {
-    dir: 'ポテパンキャンプ',
-    url: 'https://camp.potepan.com/',
-    ignorePaths: ['https://camp.potepan.com/interview/'],
+    dir: 'Tech Academy',
+    url: 'https://techacademy.jp/',
   },
-  // {
-  //   title: 'lamda-school',
-  //   url: 'https://miru.page/',
-  // },
-  // {
-  //   title: 'tech-camp',
-  //   url: 'https://menuforest.page/welcome',
-  // },
 ];
